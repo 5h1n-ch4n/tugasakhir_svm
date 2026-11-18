@@ -1,0 +1,39 @@
+name: Hourly Weather Prediction (t+1)
+
+on:
+  schedule:
+    - cron: '5 * * * *' # Setiap jam pada menit ke-5
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  predict:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Hourly SVM Inference
+        env:
+          FIREBASE_DB_URL: ${{ secrets.FIREBASE_DB_URL }}
+          FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
+        run: python predict.py
+
+      - name: Save Latest Prediction Snapshot
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add models/latest_prediction.json
+          git diff --staged --quiet || git commit -m "chore: update hourly forecast snapshot [skip ci]"
+          git push
