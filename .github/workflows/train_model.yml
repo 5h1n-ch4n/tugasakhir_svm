@@ -1,0 +1,45 @@
+name: Train SVM Weather Model
+
+on:
+  schedule:
+    - cron: '0 20 * * 0' # Setiap Minggu pukul 03:00 WIB (20:00 UTC Sabtu)
+  workflow_dispatch:      # Bisa dijalankan manual lewat tab Actions
+
+permissions:
+  contents: write
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate Initial Data (Jika Belum Ada Data)
+        run: |
+          if [ ! -f "data/raw_history.csv" ]; then
+            python generate_data.py
+          fi
+
+      - name: Preprocess & Train SVM (SVC + SVR)
+        env:
+          FIREBASE_DB_URL: ${{ secrets.FIREBASE_DB_URL }}
+          FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
+        run: python train_svm.py
+
+      - name: Commit Updated Models to Repository
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add models/ data/dataset_aws.csv
+          git diff --staged --quiet || git commit -m "chore: update trained SVM models [skip ci]"
+          git push
