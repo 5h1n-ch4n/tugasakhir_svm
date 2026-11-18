@@ -1,0 +1,72 @@
+{
+  "trained_at_wib": "2026-11-18 19:27:23",
+  "train_samples": 860,
+  "test_samples": 215,
+  "features": [
+    "suhu",
+    "kelembapan",
+    "tekanan",
+    "cahaya",
+    "hujan",
+    "kecepatan_angin",
+    "temp_change_1h",
+    "humidity_change_1h",
+    "pressure_change_1h",
+    "rain_sum_3h",
+    "temp_avg_3h",
+    "humidity_avg_3h"
+  ],
+  "classes": [
+    "Berang-berang",
+    "Berawan",
+    "Cerah",
+    "Hujan Lebat",
+    "Hujan Ringan"
+  ],
+  "svc_best_params": {
+    "svc__C": 100.0,
+    "svc__class_weight": null,
+    "svc__gamma": 0.01,
+    "svc__kernel": "rbf"
+  },
+  "svc_metrics": {
+    "accuracy": 0.907,
+    "f1_weighted": 0.8835
+  },
+  "svr_metrics": {
+    "suhu": {
+      "MAE": 0.219,
+      "RMSE": 0.48
+    },
+    "kelembapan": {
+      "MAE": 0.9052,
+      "RMSE": 2.337
+    },
+    "kecepatan_angin": {
+      "MAE": 0.1724,
+      "RMSE": 0.2575
+    },
+    "hujan": {
+      "MAE": 0.1879,
+      "RMSE": 0.4271
+    }
+  },
+  "train_bounds": {
+    "suhu": {
+      "min": 20.98166666666667,
+      "max": 33.25783333333332
+    },
+    "kelembapan": {
+      "min": 58.72333333333333,
+      "max": 99.5
+    },
+    "kecepatan_angin": {
+      "min": 2.5736666666666665,
+      "max": 10.342000000000002
+    },
+    "hujan": {
+      "min": 0.0,
+      "max": 8.990000000000002
+    }
+  }
+}

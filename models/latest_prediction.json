@@ -1,0 +1,27 @@
+{
+  "station_id": "AWS_TPST_01",
+  "object_type": "Kandang Ayam Pejantan",
+  "observation_time": "2026-11-18 19:00:00 WIB",
+  "forecast_time": "2026-11-18 20:00:00 WIB",
+  "predicted_class": "Berawan",
+  "probabilities_pct": {
+    "Berang-berang": 3.94,
+    "Berawan": 92.72,
+    "Cerah": 0.86,
+    "Hujan Lebat": 0.63,
+    "Hujan Ringan": 1.85
+  },
+  "forecast_values": {
+    "suhu": 28.6,
+    "kelembapan": 75.16,
+    "kecepatan_angin": 8.81,
+    "hujan": 0.05
+  },
+  "thi_forecast": 80.0,
+  "heat_stress_status": "WASPADA PANAS",
+  "fan_recommendation": "NYALAKAN KIPAS SEDANG (50-75%)",
+  "recommendations": [
+    "Info Cuaca: Diprediksi Berawan.",
+    "[WASPADA GERAH] Suhu prediksi 28.6°C (THI: 80.0). Nyalakan kipas sirkulasi untuk menjaga suhu kandang tetap adem agar nafsu makan ayam tidak turun."
+  ]
+}
